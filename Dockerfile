@@ -12,4 +12,4 @@ RUN go build -o ./sync-service
 
 EXPOSE 8080
 
-CMD [ "/sync-service" ]
+CMD [ "./sync-service" ]

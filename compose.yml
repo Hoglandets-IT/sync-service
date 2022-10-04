@@ -5,5 +5,6 @@ services:
     ports:
       - '8080:8080'
     environment:
-      - SYNC_SECRET="testsecret123"
-      - SYNC_ADDR="0.0.0.0:80"
+      - GIN_MODE=release
+      - SYNC_SECRET=testsecret123
+      - PORT=8080

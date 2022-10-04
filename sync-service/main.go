@@ -1,6 +1,7 @@
-package utils
+package main
 
 import (
+	"os"
 	"fmt"
 	"net"
 	"time"
@@ -110,7 +111,7 @@ func sync(claims *SyncClaim) error {
 	return nil
 }
 
-func HandleSyncRequest(secret string) func(c *gin.Context) {
+func handleSyncRequest(secret string) func(c *gin.Context) {
 
 	return func(c *gin.Context) {
 
@@ -118,8 +119,9 @@ func HandleSyncRequest(secret string) func(c *gin.Context) {
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 				"status": "error",
-				"message": err,
+				"message": err.Error(),
 			})
+			return
 		}
 
 		tokenString := string(data)
@@ -128,16 +130,18 @@ func HandleSyncRequest(secret string) func(c *gin.Context) {
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 				"status": "error",
-				"message": err,
+				"message": err.Error(),
 			})
+			return
 		}
 
 		err = sync(claims)
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 				"status": "error",
-				"message": err,
+				"message": err.Error(),
 			})
+			return
 		}
 		
 		c.JSON(http.StatusOK, gin.H{
@@ -146,4 +150,19 @@ func HandleSyncRequest(secret string) func(c *gin.Context) {
 
 		})
 	}
+}
+
+func main() {
+
+	secret := os.Getenv("SYNC_SECRET")
+	if secret == "" {
+		panic("unable to start service, missing env \"SYNC_SECRET\".")
+	}
+
+	r := gin.Default()
+	r.SetTrustedProxies(nil)
+
+	r.POST("/sync", handleSyncRequest(secret))
+
+	r.Run()
 }
