@@ -1,0 +1,9 @@
+services:
+  sync_service:
+    build: .
+    container_name: sync_service
+    ports:
+      - '8080:8080'
+    environment:
+      - SYNC_SECRET="testsecret123"
+      - SYNC_ADDR="0.0.0.0:80"
