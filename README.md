@@ -7,7 +7,7 @@
 
 ```json
 {
-  "src": {
+	"src": {
 		"server":   "SOURCESERVER"
 		"username": "sourceuser"
 		"password": "sourcepassword"
@@ -15,7 +15,7 @@
 		"share":    "sourceshare$"
 		"path":     "path/on/share"
 	}
-	"src": {
+	"dst": {
 		"server":   "DESTINATIONSERVER"
 		"username": "destinationuser"
 		"password": "destinationpassword"
