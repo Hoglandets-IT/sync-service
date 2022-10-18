@@ -10,9 +10,17 @@ jobs:
 
   build:
 
-    runs-on: ubuntu-latest
-
+    runs-on: [self-hosted, Linux, acr]
+    
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag sync-service:$(date +%s)
+    - name: Build the docker image
+      run: |
+        docker build -t ${{ secrets.AZURECR_URL }}/automation/smb-sync-service:latest
+    - name: Push the docker image to Azure CR
+      run: |
+        docker login ${{ secrets.AZURECR_URL }} -u ${{ secrets.AZURECR_USER }} -p ${{ secrets.AZURECR_PASS }}
+        docker push ${{ secrets.AZURECR_URL }}/automation/smb-sync-service:latest
+    - name: Clear image from local cache    
+      run: |
+        docker rmi ${{ secrets.AZURECR_URL }}/automation/smb-sync-service:latest
