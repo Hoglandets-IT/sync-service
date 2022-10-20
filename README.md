@@ -8,19 +8,19 @@
 ```json
 {
 	"src": {
-		"server":   "SOURCESERVER"
-		"username": "sourceuser"
-		"password": "sourcepassword"
-		"domain":   "YOURDOMAIN"
-		"share":    "sourceshare$"
+		"server":   "SOURCESERVER",
+		"username": "sourceuser",
+		"password": "sourcepassword",
+		"domain":   "YOURDOMAIN",
+		"share":    "sourceshare$",
 		"path":     "path/on/share"
-	}
+	},
 	"dst": {
-		"server":   "DESTINATIONSERVER"
-		"username": "destinationuser"
-		"password": "destinationpassword"
-		"domain":   "YOURDOMAIN"
-		"share":    "destinationshare$"
+		"server":   "DESTINATIONSERVER",
+		"username": "destinationuser",
+		"password": "destinationpassword",
+		"domain":   "YOURDOMAIN",
+		"share":    "destinationshare$",
 		"path":     "path/on/share"
 	}
 }
